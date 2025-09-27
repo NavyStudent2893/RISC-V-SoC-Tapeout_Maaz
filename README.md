@@ -76,3 +76,61 @@ sudo apt install gtkwave
 
 
 </details>
+
+<details>
+  <summary><h2>Week 1</h2></summary>
+  <summary><h2>Day 1</h3></summary>
+  Day 1 included labs on iverilog, GTKWave and Yosys.
+
+  Simulation of 2x1 "Good_mux"
+
+ - Cloning Git repo
+  ```bash
+  git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git
+   cd sky130RTLDesignAndSynthesisWorkshop/verilog_files
+```
+- Compile the design and testbench files and runnning them
+```bash
+iverilog good_mux.v tb_good_mux.v
+./a.out
+```
+![simulation]()
+- Viewing the files
+``` bash
+gtkwave tb_good_mux.vcd
+```
+![waveform]()
+
+-Verilog code for the mux
+ ```verilog
+module good_mux (input i0, input i1, input sel, output reg y);
+always @ (*)
+begin
+    if(sel)
+        y <= i1;
+    else 
+        y <= i0;
+end
+endmodule
+```
+
+Introuction to Yosys :
+
+-Starting Yosys, reading library files and reading verilog code
+```bash
+yosys
+read_liberty -lib /address/to/your/sky130/file/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog /home/vsduser/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files/good_mux.v
+```
+- Synthesizing, Tech mapping and showing the netlist
+  ```bash
+  synth -top good_mux
+  abc -liberty ../my_lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+  show
+  ```
+  ![netlist]()
+
+  
+  
+</details>
+  
